@@ -4,6 +4,8 @@ import { ChatModule } from '../chat/chat.module';
 import { ChatQueueProcessor } from './chatqueue.processor';
 import { BotModule } from '../bot/bot.module';
 import { ChatQueueService } from './chatqueue.service';
+import { WhatsappModule } from '../whatsapp/whatsapp.module';
+import { ConversationModule } from '../conversation/conversation.module';
 
 @Module({
   imports: [
@@ -13,6 +15,8 @@ import { ChatQueueService } from './chatqueue.service';
     }),
     forwardRef(() => ChatModule),
     BotModule,
+    forwardRef(() => WhatsappModule),
+    ConversationModule,
   ],
   providers: [ChatQueueService, ChatQueueProcessor],
   exports: [ChatQueueService],

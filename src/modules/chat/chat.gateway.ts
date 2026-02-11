@@ -18,7 +18,6 @@ export class ChatGateway {
   @SubscribeMessage('send_message')
   async handleMessage(@MessageBody() data: SendMessageDto) {
     await this.chatQueueService.addMessage(data);
-    // Resposta rápida ao cliente
     return { status: 'Mensagem enviada para processamento' };
   }
 

@@ -17,6 +17,7 @@ export class ChatService {
 
   async sendMessages(dto: SendMessageDto) {
     const message = await this.messageModel.create(dto);
+    console.log(message);
 
     await this.redis.lpush(
       `conversation:${dto.conversationId}:messages`,

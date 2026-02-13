@@ -10,9 +10,6 @@ export class WhatsappService {
       const authToken = process.env.TWILIO_AUTH_TOKEN as string;
       const from = process.env.TWILIO_WHATSAPP_NUMBER as string;
 
-      console.log('📤 Enviando mensagem...');
-      console.log({ to, from, content });
-
       const response = await axios.post(
         `https://api.twilio.com/2010-04-01/Accounts/${accountSid}/Messages.json`,
         new URLSearchParams({

@@ -11,26 +11,32 @@ export class AiService {
     });
   }
 
-  async generateReply(data: { interesse?: string; mensagem: string }) {
-    const prompt = `
-Você é atendente de uma empresa.
-Interesse registrado: ${data.interesse ?? 'nenhum'}
-Mensagem atual do cliente:
-"${data.mensagem}"
+  async generateReply(data: { currentStep?: string; content: string }) {
+    try {
+      const prompt = `
+      Você é atendente de uma empresa.
+      Etapa atual do atendimento: ${data.currentStep ?? 'nenhuma'}
+      Mensagem atual do cliente:
+      "${data.content}"
 
-Responda de forma educada e objetiva.
-`;
+      Responda de forma educada e objetiva.
+      `;
 
-    const response = await this.openai.chat.completions.create({
-      model: 'gpt-4o-mini',
-      messages: [{ role: 'user', content: prompt }],
-    });
+      const response = await this.openai.chat.completions.create({
+        model: 'gpt-4o-mini',
+        messages: [{ role: 'user', content: prompt }],
+      });
 
-    console.log('Resposta do chat:', response);
-
-    return (
-      response.choices[0]?.message?.content ??
-      'Desculpe, não consegui gerar uma resposta no momento.'
-    );
+      console.log(
+        'Conteúdo da resposta:',
+        response.choices[0]?.message?.content,
+      );
+      return (
+        response.choices[0]?.message?.content ??
+        'Desculpe, não consegui gerar uma resposta adequada.'
+      );
+    } catch {
+      return 'No momento estamos com instabilidade...';
+    }
   }
 }

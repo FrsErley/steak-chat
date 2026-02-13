@@ -15,7 +15,6 @@ export class BotService {
     const conversation =
       await this.conversationService.findOrCreate(conversationId);
 
-    console.log(conversation);
     switch (conversation.currentStep) {
       case 'idle':
         if (this.isGreeting(message)) {
